@@ -26,7 +26,31 @@ def predict():
         if None in [gender, age, hypertension, heart_disease, ever_married, work_type, Residence_type, avg_glucose_level, bmi, smoking_status]:
             return render_template('index.html', result='Missing input(s)')
         else:
-            arr = np.array([[gender, age, hypertension, heart_disease, ever_married, work_type, Residence_type, avg_glucose_level, bmi, smoking_status]])
+            # Transform inputs to match model's expected input format
+            input_data = [
+                float(age),
+                int(hypertension),
+                int(heart_disease),
+                float(avg_glucose_level),
+                float(bmi),
+                1 if gender == 'Female' else 0,
+                1 if gender == 'Male' else 0,
+                0,  # gender_Other not used
+                1 if ever_married == 'No' else 0,
+                1 if ever_married == 'Yes' else 0,
+                1 if work_type == 'Govt_job' else 0,
+                1 if work_type == 'Never_worked' else 0,
+                1 if work_type == 'Private' else 0,
+                1 if work_type == 'Self-employed' else 0,
+                1 if work_type == 'children' else 0,
+                1 if Residence_type == 'Rural' else 0,
+                1 if Residence_type == 'Urban' else 0,
+                1 if smoking_status == 'Unknown' else 0,
+                1 if smoking_status == 'formerly smoked' else 0,
+                1 if smoking_status == 'never smoked' else 0,
+                1 if smoking_status == 'smokes' else 0
+            ]
+            arr = np.array([input_data])
             predictions = model.predict(arr)
             return render_template('index.html', result=str(predictions[0][0]))
     except Exception as e:
