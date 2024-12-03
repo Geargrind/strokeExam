@@ -1,24 +1,36 @@
 from flask import Flask, render_template, request
 from tensorflow.keras.models import load_model
 import numpy as np
+
 app = Flask(__name__)
 
-@app.route('/',methods=['post','get']) # will use get for the first page-load, post for the form-submit
-def predict(): # this function can have any name
-  try:
-    model = load_model('model.keras') # the mymodel.keras file was created in Colab, downloaded and uploaded using Filezilla
-    in1 = request.form.get('in1') # get the two numbers from the request object
-    in2 = request.form.get('in2')
-    if in1 == None or in2 == None: # check if any number is missing
-      return render_template('index.html', result='No input(s)')
-        # calling render_template will inject the variable 'result' and send index.html to the browser
-    else:
-      arr = np.array([[ float(in1),float(in2) ]]) # cast string to decimal number, and make 2d numpy array.
-      predictions = model.predict(arr) # make new prediction
-      return render_template('index.html', result=str(predictions[0][0]))
-        # the result is set, by asking for row=0, column=0. Then cast to string.
-  except Exception as e:
-    return render_template('index.html', result='error ' + str(e))
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/predict', methods=['post'])
+def predict():
+    try:
+        model = load_model('strokeModel.keras')
+        gender = request.form.get('gender')
+        age = request.form.get('age')
+        hypertension = request.form.get('hypertension')
+        heart_disease = request.form.get('heart_disease')
+        ever_married = request.form.get('ever_married')
+        work_type = request.form.get('work_type')
+        Residence_type = request.form.get('Residence_type')
+        avg_glucose_level = request.form.get('avg_glucose_level')
+        bmi = request.form.get('bmi')
+        smoking_status = request.form.get('smoking_status')
+
+        if None in [gender, age, hypertension, heart_disease, ever_married, work_type, Residence_type, avg_glucose_level, bmi, smoking_status]:
+            return render_template('index.html', result='Missing input(s)')
+        else:
+            arr = np.array([[gender, age, hypertension, heart_disease, ever_married, work_type, Residence_type, avg_glucose_level, bmi, smoking_status]])
+            predictions = model.predict(arr)
+            return render_template('index.html', result=str(predictions[0][0]))
+    except Exception as e:
+        return render_template('index.html', result='error ' + str(e))
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0')
