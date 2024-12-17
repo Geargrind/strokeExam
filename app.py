@@ -65,6 +65,8 @@ def predict():
         if arr.shape[1] != model.input_shape[1]:
             return render_template('index.html', result='Input shape mismatch')
 
+        logging.debug(f'Input data (before scaling): {arr}')
+        
         # Scale the input data
         arr_scaled = scaler.transform(arr)
 
