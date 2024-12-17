@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 from tensorflow.keras.models import load_model
 import numpy as np
+import joblib
 import logging
 
 app = Flask(__name__)
@@ -8,8 +9,9 @@ app = Flask(__name__)
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
 
-# Load the model once at the start
+# Load the model and scaler once at the start
 model = load_model('strokeModel.keras')
+scaler = joblib.load('scaler.pkl')
 
 @app.route('/')
 def home():
@@ -63,8 +65,11 @@ def predict():
         if arr.shape[1] != model.input_shape[1]:
             return render_template('index.html', result='Input shape mismatch')
 
-        logging.debug(f'Input data: {input_data}')
-        predictions = model.predict(arr)
+        # Scale the input data
+        arr_scaled = scaler.transform(arr)
+
+        logging.debug(f'Input data (scaled): {arr_scaled}')
+        predictions = model.predict(arr_scaled)
         logging.debug(f'Prediction: {predictions[0][0]}')
         
         return render_template('index.html', result=str(predictions[0][0]), input_data=input_data, prediction=predictions[0][0])
