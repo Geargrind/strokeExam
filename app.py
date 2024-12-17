@@ -15,7 +15,7 @@ scaler = joblib.load('scaler.pkl')
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.html', prediction=None, input_data=None)
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -33,7 +33,7 @@ def predict():
 
         # Check for missing inputs
         if None in [gender, age, hypertension, heart_disease, ever_married, work_type, Residence_type, avg_glucose_level, bmi, smoking_status]:
-            return render_template('index.html', result='Missing input(s)')
+            return render_template('index.html', result='Missing input(s)', prediction=None, input_data=None)
 
         # Transform inputs to match model's expected input format
         input_data = [
@@ -63,7 +63,7 @@ def predict():
         
         # Ensure the input shape matches the model's expected input shape
         if arr.shape[1] != model.input_shape[1]:
-            return render_template('index.html', result='Input shape mismatch')
+            return render_template('index.html', result='Input shape mismatch', prediction=None, input_data=None)
 
         logging.debug(f'Input data (before scaling): {arr}')
         
@@ -77,10 +77,10 @@ def predict():
         return render_template('index.html', result=str(predictions[0][0]), input_data=input_data, prediction=predictions[0][0])
     except ValueError as ve:
         logging.error(f'ValueError: {ve}')
-        return render_template('index.html', result='Invalid input: ' + str(ve))
+        return render_template('index.html', result='Invalid input: ' + str(ve), prediction=None, input_data=None)
     except Exception as e:
         logging.error(f'Exception: {e}')
-        return render_template('index.html', result='Error: ' + str(e))
+        return render_template('index.html', result='Error: ' + str(e), prediction=None, input_data=None)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
