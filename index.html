@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stroke Prediction</title>
+    <style>
+      .no-stroke {
+        color: green;
+      }
+      .stroke {
+        color: red;
+      }
+    </style>
   </head>
   <body>
     <h1>Stroke Prediction</h1>
@@ -98,17 +106,17 @@
     </form>
     <div>
       <h2>Prediction Result:</h2>
-      <p>{{ result }}</p>
+      {% if prediction is not none %} {% if prediction > 3.884129546349868e-05
+      %}
+      <p class="stroke">STROKE</p>
+      {% else %}
+      <p class="no-stroke">NO STROKE</p>
+      {% endif %} {% endif %}
     </div>
     {% if input_data %}
     <div>
       <h2>Input Data:</h2>
       <p>{{ input_data }}</p>
-    </div>
-    {% endif %} {% if prediction is not none %}
-    <div>
-      <h2>Prediction:</h2>
-      <p>{{ prediction }}</p>
     </div>
     {% endif %}
   </body>
