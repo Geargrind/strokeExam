@@ -1,8 +1,12 @@
 from flask import Flask, request, render_template
 from tensorflow.keras.models import load_model
 import numpy as np
+import logging
 
 app = Flask(__name__)
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
 
 # Load the model once at the start
 model = load_model('strokeModel.keras')
@@ -59,11 +63,16 @@ def predict():
         if arr.shape[1] != model.input_shape[1]:
             return render_template('index.html', result='Input shape mismatch')
 
+        logging.debug(f'Input data: {input_data}')
         predictions = model.predict(arr)
-        return render_template('index.html', result=str(predictions[0][0]))
+        logging.debug(f'Prediction: {predictions[0][0]}')
+        
+        return render_template('index.html', result=str(predictions[0][0]), input_data=input_data, prediction=predictions[0][0])
     except ValueError as ve:
+        logging.error(f'ValueError: {ve}')
         return render_template('index.html', result='Invalid input: ' + str(ve))
     except Exception as e:
+        logging.error(f'Exception: {e}')
         return render_template('index.html', result='Error: ' + str(e))
 
 if __name__ == '__main__':

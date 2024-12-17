@@ -100,5 +100,16 @@
       <h2>Prediction Result:</h2>
       <p>{{ result }}</p>
     </div>
+    {% if input_data %}
+    <div>
+      <h2>Input Data:</h2>
+      <p>{{ input_data }}</p>
+    </div>
+    {% endif %} {% if prediction is not none %}
+    <div>
+      <h2>Prediction:</h2>
+      <p>{{ prediction }}</p>
+    </div>
+    {% endif %}
   </body>
 </html>
