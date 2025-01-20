@@ -8,8 +8,9 @@ app = Flask(__name__)
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
 
-# Load the model once at the start
-model = load_model('strokeModel.keras')
+# Get the absolute path to the model file
+current_dir = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(current_dir, 'strokeModel.keras')
 
 @app.route('/')
 def home():
