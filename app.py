@@ -14,6 +14,7 @@ logging.basicConfig(level=logging.DEBUG)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(current_dir, 'strokeModel.keras')
 # Load the model and scaler once at the start
+model = load_model(model_path)
 scaler = joblib.load('scaler.pkl')
 
 @app.route('/')
