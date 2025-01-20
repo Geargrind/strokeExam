@@ -1,123 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stroke Prediction</title>
-    <style>
-      .no-stroke {
-        color: green;
-      }
-      .stroke {
-        color: red;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Stroke Prediction - test</h1>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="style.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Stroke Prediction</title>
+        <style>
+            .no-stroke {
+                color: green;
+            }
+            .stroke {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Stroke Prediction - test</h1>
 
-    <form action="/predict" method="post">
-      <div>
-        <label for="gender">Gender:</label>
-        <select id="gender" name="gender" required>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
-      </div>
+        <div id="form">
+            <form action="/predict" method="post">
+                <div class="input-fields">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
 
-      <div>
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" min="0" max="120" required />
-      </div>
+                <div class="input-fields">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" min="0" max="120" required />
+                </div>
 
-      <div>
-        <label for="hypertension">Hypertension:</label>
-        <select id="hypertension" name="hypertension" required>
-          <option value="0">No</option>
-          <option value="1">Yes</option>
-        </select>
-      </div>
+                <div class="input-fields">
+                    <label for="hypertension">Hypertension:</label>
+                    <select id="hypertension" name="hypertension" required>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
 
-      <div>
-        <label for="heart_disease">Heart Disease:</label>
-        <select id="heart_disease" name="heart_disease" required>
-          <option value="0">No</option>
-          <option value="1">Yes</option>
-        </select>
-      </div>
+                <div class="input-fields">
+                    <label for="heart_disease">Heart Disease:</label>
+                    <select id="heart_disease" name="heart_disease" required>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
 
-      <div>
-        <label for="ever_married">Ever Married:</label>
-        <select id="ever_married" name="ever_married" required>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
-      </div>
+                <div class="input-fields">
+                    <label for="ever_married">Ever Married:</label>
+                    <select id="ever_married" name="ever_married" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
 
-      <div>
-        <label for="work_type">Work Type:</label>
-        <select id="work_type" name="work_type" required>
-          <option value="Private">Private</option>
-          <option value="Self-employed">Self-employed</option>
-          <option value="Govt_job">Government Job</option>
-          <option value="Never_worked">Never worked</option>
-          <option value="children">Children</option>
-        </select>
-      </div>
+                <div class="input-fields">
+                    <label for="work_type">Work Type:</label>
+                    <select id="work_type" name="work_type" required>
+                        <option value="Private">Private</option>
+                        <option value="Self-employed">Self-employed</option>
+                        <option value="Govt_job">Government Job</option>
+                        <option value="Never_worked">Never worked</option>
+                        <option value="children">Children</option>
+                    </select>
+                </div>
 
-      <div>
-        <label for="Residence_type">Residence Type:</label>
-        <select id="Residence_type" name="Residence_type" required>
-          <option value="Urban">Urban</option>
-          <option value="Rural">Rural</option>
-        </select>
-      </div>
+                <div class="input-fields">
+                    <label for="Residence_type">Residence Type:</label>
+                    <select id="Residence_type" name="Residence_type" required>
+                        <option value="Urban">Urban</option>
+                        <option value="Rural">Rural</option>
+                    </select>
+                </div>
 
-      <div>
-        <label for="avg_glucose_level">Average Glucose Level:</label>
-        <input
-          type="number"
-          id="avg_glucose_level"
-          name="avg_glucose_level"
-          step="0.01"
-          min="0"
-          required
-        />
-      </div>
+                <div class="input-fields">
+                    <label for="avg_glucose_level">Average Glucose Level:</label>
+                    <input type="number" id="avg_glucose_level" name="avg_glucose_level" step="0.01" min="0" required />
+                </div>
 
-      <div>
-        <label for="bmi">BMI:</label>
-        <input type="number" id="bmi" name="bmi" step="0.01" min="0" required />
-      </div>
+                <div class="input-fields">
+                    <label for="bmi">BMI:</label>
+                    <input type="number" id="bmi" name="bmi" step="0.01" min="0" required />
+                </div>
 
-      <div>
-        <label for="smoking_status">Smoking Status:</label>
-        <select id="smoking_status" name="smoking_status" required>
-          <option value="never smoked">Never Smoked</option>
-          <option value="formerly smoked">Formerly Smoked</option>
-          <option value="smokes">Currently Smokes</option>
-          <option value="Unknown">Unknown</option>
-        </select>
-      </div>
+                <div class="input-fields">
+                    <label for="smoking_status">Smoking Status:</label>
+                    <select id="smoking_status" name="smoking_status" required>
+                        <option value="never smoked">Never Smoked</option>
+                        <option value="formerly smoked">Formerly Smoked</option>
+                        <option value="smokes">Currently Smokes</option>
+                        <option value="Unknown">Unknown</option>
+                    </select>
+                </div>
 
-      <div>
-        <button type="submit">Predict Stroke Risk</button>
-      </div>
-    </form>
-    <div>
-      <h2>Prediction Result:</h2>
-      {% if prediction is not none %} {% if prediction > 0.5 %}
-      <p class="stroke">STROKE</p>
-      {% else %}
-      <p class="no-stroke">NO STROKE</p>
-      {% endif %} {% endif %}
-    </div>
-
-    {% if input_data %}
-    <div>
-      <h2>Input Data:</h2>
-      <p>{{ input_data }}</p>
-    </div>
-    {% endif %}
-  </body>
+                <div id="btn">
+                    <button class="input-fields" type="submit">Predict Stroke Risk</button>
+                </div>
+            </form>
+        </div>
+        <div>
+            <div id="result">
+                <h2 class="h2">Prediction Result:</h2>
+                {% if prediction is not none %} {% if prediction > 0.5 %}
+                <p class="stroke">STROKE</p>
+                {% else %}
+                <p class="no-stroke">NO STROKE</p>
+                {% endif %} {% endif %} {% if input_data %}
+                <div>
+                    <h2 class="h2">Input Data:</h2>
+                    <p id="input-data">{{ input_data }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </body>
 </html>
